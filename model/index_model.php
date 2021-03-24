@@ -29,11 +29,11 @@ class Index_Model extends dbconn
 	{
 		{
 			$rows["email_id"]=$data['email'];
-			$rows["password"]=$data['password'];
+			$rows["password"]=md5($data['password']);
 			$rows["full_name"]=$data['full_name'];
 			$rows["verify_flag"]=1;
 			$rows["created_on"]=date("Y-m-d H:i:s");
-			$rows["last_login"]=$data['password'];		
+			$rows["last_login"]=date("Y-m-d H:i:s");		
 			return $this->Insert('login',$rows);
 		}
 		return 0;
@@ -58,6 +58,10 @@ class Index_Model extends dbconn
 			return $this->Select('applications',"*",$where,"","","","AND");
 		}
 		return 0;
+	}
+	function update_password($id,$data)
+	{
+		$this->Update("login",$data,$id);
 	}
 	function update_app_status($id,$data)
 	{
